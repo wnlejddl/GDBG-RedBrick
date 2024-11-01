@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Tilemap tilemap;
 
 
-    [SerializeField] Sprite downDirection;
+    [SerializeField] Sprite downDirectionSprite;
+    private SpriteRenderer spriteRenderer;
 
     Vector3 targetPosition;
     Vector3 currentPosition;
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour
         currentPosition = tilemap.CellToWorld(tilemap.WorldToCell(transform.position));
         targetPosition = currentPosition;
 
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -31,16 +34,24 @@ public class PlayerController : MonoBehaviour
         {
             Vector3Int cellPos = tilemap.WorldToCell(transform.position) + new Vector3Int(-1, 0, 0);
             targetPosition = tilemap.CellToWorld(cellPos) + new Vector3(0.5f, 0, 0); // 오프셋 추가
+
+            spriteRenderer.flipX = true;
+
         }
         else if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.D))
         {
             Vector3Int cellPos = tilemap.WorldToCell(transform.position) + new Vector3Int(1, 0, 0);
             targetPosition = tilemap.CellToWorld(cellPos) + new Vector3(0.5f, 0, 0); // 오프셋 추가
+
+            spriteRenderer.flipX = false;
+
         }
         else if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S))
         {
             Vector3Int cellPos = tilemap.WorldToCell(transform.position) + new Vector3Int(0, -1, 0);
             targetPosition = tilemap.CellToWorld(cellPos) + new Vector3(0.5f, 0, 0); // 오프셋 추가
+
+            spriteRenderer.sprite = downDirectionSprite;
         }
 
         // 목표 위치와 현재 위치가 다를 때만 코루틴 실행
