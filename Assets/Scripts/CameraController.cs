@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float scrollSpeed = 2.0f; // 카메라 이동 속도
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // 카메라를 아래로 이동
+        transform.position += new Vector3(0, -scrollSpeed * Time.deltaTime, 0);
     }
 }
