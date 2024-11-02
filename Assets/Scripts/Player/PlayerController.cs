@@ -171,4 +171,8 @@ public class PlayerController : MonoBehaviour
     public void Dead(){
         animator.SetTrigger("Slide");
     }
+
+    public void BreakAllBelow(int range){
+        tileManager.RemoveAllTile(targetPosition, range);
+    }
 }

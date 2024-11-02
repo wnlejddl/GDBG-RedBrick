@@ -609,8 +609,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gem: {fileID: 8369677131867381531, guid: df81335d69ed02644875d93d5766f8d8, type: 3}
-  strongTool: {fileID: 0}
-  bomb: {fileID: 0}
+  cameraKeeper: {fileID: 6766996775268022934, guid: 48edac79203b21c4cace3596acb2f4bb, type: 3}
+  bomb: {fileID: 7179885596085652097, guid: 9ba63a8719989a142937c89a662deb7f, type: 3}
 --- !u!1 &447554336 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8211990841330437460, guid: e3899867d6123254987077a7c678cc73, type: 3}

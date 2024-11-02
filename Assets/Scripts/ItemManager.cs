@@ -8,7 +8,7 @@ public class ItemManager : MonoBehaviour
     public static ItemManager instance;
 
     [SerializeField] GameObject gem;
-    [SerializeField] GameObject strongTool;
+    [SerializeField] GameObject cameraKeeper;
     [SerializeField] GameObject bomb;
 
     List<GameObject> items;
@@ -26,7 +26,7 @@ public class ItemManager : MonoBehaviour
     }
 
     void Start(){
-        items  = new List<GameObject>(){gem, strongTool, bomb};
+        items  = new List<GameObject>(){gem, cameraKeeper, bomb};
     }
 
     public GameObject GetGemPrefab(){
@@ -37,8 +37,9 @@ public class ItemManager : MonoBehaviour
     public GameObject GetRandomItem(){
 
         // 리스트에서 랜덤 아이템 뽑기로 추후 수정
+        GameObject randomItem = items[Random.Range(0, items.Count)];
         
-        return gem;
+        return randomItem;
     }
 
 

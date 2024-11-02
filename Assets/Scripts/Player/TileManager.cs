@@ -1,5 +1,7 @@
 
+
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -208,7 +210,7 @@ public class TileManager : MonoBehaviour
 
 
 
-    public void RemoveTile(Vector3 currentPos, Vector3Int direction)
+    public void RemoveTile(Vector3 currentPos, Vector3Int direction, bool destroyAll = false)
     {
 
         Vector3Int currentCell = foreTile.WorldToCell(currentPos); 
@@ -245,5 +247,18 @@ public class TileManager : MonoBehaviour
         else{
             
         }
+    }
+
+    public void RemoveAllTile(Vector3 currentPos, int range){
+        Vector3Int targetCell = foreTile.WorldToCell(currentPos);
+
+        for(int i=0;i<range;i++){
+            while(HasTileBelow(currentPos)){
+                RemoveTile(currentPos, Vector3Int.down, true);
+            }
+
+            currentPos = GetNextMovementPos(currentPos,Vector3Int.down );
+        }
+    
     }
 }
