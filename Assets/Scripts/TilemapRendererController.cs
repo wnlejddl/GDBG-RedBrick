@@ -6,7 +6,6 @@ using UnityEngine.Tilemaps;
 
 public class TilemapRendererController : MonoBehaviour
 {
-    // 현재 씬에 따라 활성화된 씬을 확인하고 비활성화할 씬들을 지정
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -23,28 +22,28 @@ public class TilemapRendererController : MonoBehaviour
         switch (scene.name)
         {
             case "Ice Stage":
-                DisableTilemapRenderers("Earth Stage", "Lava Stage", "Goal Stage");
+                DisableOtherTilemapRenderers("Earth Stage", "Lava Stage", "Goal Stage");
                 break;
             case "Earth Stage":
-                DisableTilemapRenderers("Ice Stage", "Lava Stage", "Goal Stage");
+                DisableOtherTilemapRenderers("Ice Stage", "Lava Stage", "Goal Stage");
                 break;
             case "Lava Stage":
-                DisableTilemapRenderers("Ice Stage", "Earth Stage", "Goal Stage");
+                DisableOtherTilemapRenderers("Ice Stage", "Earth Stage", "Goal Stage");
                 break;
             case "Goal Stage":
-                DisableTilemapRenderers("Ice Stage", "Earth Stage", "Lava Stage");
+                DisableOtherTilemapRenderers("Ice Stage", "Earth Stage", "Lava Stage");
                 break;
             default:
                 break;
         }
     }
 
-    void DisableTilemapRenderers(params string[] sceneNames)
+    void DisableOtherTilemapRenderers(params string[] sceneNames)
     {
         foreach (string sceneName in sceneNames)
         {
             Scene scene = SceneManager.GetSceneByName(sceneName);
-            if (scene.isLoaded)
+            if (scene.isLoaded) // 씬이 로드되어 있는지 확인
             {
                 GameObject[] sceneObjects = scene.GetRootGameObjects();
                 foreach (GameObject obj in sceneObjects)
