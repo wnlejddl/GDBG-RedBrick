@@ -112,4 +112,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log(targetPosition);
         if(targetPosition == Vector3.negativeInfinity) targetPosition = transform.position;
     }
+
+    public void Dead(){
+        animator.SetTrigger("Slide");
+    }
 }

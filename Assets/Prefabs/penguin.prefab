@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5142471501988354309}
   m_Layer: 0
   m_Name: penguin
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,6 +119,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4046e9cf8590ba44493563a542ffe119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foreTile: {fileID: 0}
-  middleTile: {fileID: 0}
-  lastTile: {fileID: 0}
+  tileManager: {fileID: 0}
