@@ -13,22 +13,21 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     Vector3 targetPosition;
-    float moveSpeed = 5f; // 이동 속도
+    float moveSpeed = 5f;
 
     private Coroutine moveCoroutine;
 
 
     // 애니메이션
-    private Animator animator; // Animator 컴포넌트 참조
+    private Animator animator; 
 
-    bool isMoving;
+    bool isMoving= false;
+    bool isAttacking = false;
 
 
     private void Start()
     {
         targetPosition = transform.position;
-
-        isMoving = false;
         direction = PlayerDirection.Right;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -37,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(!isMoving){
+        if(!isMoving && !isAttacking){
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
                 spriteRenderer.flipX = true;
@@ -48,7 +47,7 @@ public class PlayerController : MonoBehaviour
                     targetPosition = tilemap.CellToWorld(cellPos) + new Vector3(0.5f, 0.4f, 0); // 오프셋 추가
                 }
                 else{
-                    Debug.Log("갈 수 없어요!");
+                    // 막힌 사운드 재생
                 }
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
@@ -61,19 +60,16 @@ public class PlayerController : MonoBehaviour
                     targetPosition = tilemap.CellToWorld(cellPos) + new Vector3(0.5f, 0.4f, 0); // 오프셋 추가
                 }            
                 else{
-                    Debug.Log("갈 수 없어요!");
+                    // 막힌 사운드 재생
                 }
-}
-
-            // 스페이스바를 누를 때 점프 애니메이션 실행
+            }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
-                animator.SetTrigger("Jump"); // "Jump" Trigger를 활성화
-                // Vector3Int cellPos = tilemap.WorldToCell(transform.position) + new Vector3Int(0, -1, 0);
-                // targetPosition = tilemap.CellToWorld(cellPos) + new Vector3(0.5f, 0.4f, 0); // 오프셋 추가
+                animator.SetTrigger("Jump"); 
             }
             else if(Input.GetMouseButtonDown(0)){
                 animator.SetTrigger("Attack");
+                isAttacking = true;
             }
         }
         
@@ -92,6 +88,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     IEnumerator MoveCharacter(Vector3 targetPos)
     {
         
@@ -100,8 +97,6 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
-
-        // 목표 위치에 도달했을 때 정확하게 위치 맞추기
         transform.position = targetPos;
 
         if (!HasTileBelow())
@@ -144,6 +139,7 @@ public class PlayerController : MonoBehaviour
 
     public void RemoveTile()
     {
+        Debug.Log("타일 삭제");
         if(direction == PlayerDirection.Left){
             Vector3Int cellPos = tilemap.WorldToCell(transform.position) + new Vector3Int(-1, 0, 0);
            if(tilemap.HasTile(cellPos)) {
@@ -156,7 +152,6 @@ public class PlayerController : MonoBehaviour
                     tilemap.SetTile(cellPos, null);
             } 
         }
-
     }
 
     public void RemoveTileBelow()
@@ -168,6 +163,12 @@ public class PlayerController : MonoBehaviour
 
         targetPosition = tilemap.CellToWorld(cellPos) + new Vector3(0.5f, 0.4f, 0); // 오프셋 추가
 
+    }
+
+    public void OnAttackEnd()
+    {
+        RemoveTile();
+        isAttacking = false;
     }
 
 
