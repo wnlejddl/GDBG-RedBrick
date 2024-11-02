@@ -22,9 +22,11 @@ public class PlayerController : MonoBehaviour
     private Animator animator; 
 
     bool isMoving= false;
-    bool isJumping= false;
+
     bool isAttacking = false;
 
+    Vector3 jumpStartPos;
+    Vector3 startPos;
 
     private void Start()
     {
@@ -36,36 +38,52 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(!isMoving && !isAttacking && !isJumping){
-            if (Input.GetKeyDown(KeyCode.A))
+        if(!isMoving && !isAttacking){
+            if (Input.GetKey(KeyCode.A))
             {
                 spriteRenderer.flipX = true;
-                if(tileManager.HasTileLeft(transform)){
-                    // 막힌 사운드 재생
+                startPos = transform.position;
+                
+                if(Input.GetKeyDown(KeyCode.Space) ){
+                    
+                    animator.SetTrigger("Attack");
+                    SoundController.instance.PlayAttackSound(true);
+                    isAttacking = true;
                 }
                 else{
-                    targetPosition = tileManager.GetNextMovementPos(transform, Vector3Int.left);
+                    if(tileManager.HasTileLeft(startPos)){
+                        // 막힌 사운드 재생
+                    }
+                    else{
+                        targetPosition = tileManager.GetNextMovementPos(startPos, Vector3Int.left);
+                    }
                 }
+
+
             }
-            else if (Input.GetKeyDown(KeyCode.D))
+            else if (Input.GetKey(KeyCode.D))
             {
                 spriteRenderer.flipX = false;
-                if(tileManager.HasTileRight(transform)){
+                startPos = transform.position;
+
+                if(Input.GetKeyDown(KeyCode.Space)){
+                    
+                    animator.SetTrigger("Attack");
+                    SoundController.instance.PlayAttackSound(true);
+                    isAttacking = true;
+                }
+                
+                if(tileManager.HasTileRight(startPos)){
                     // 막힌 사운드 재생
                 }
                 else{
-                    targetPosition = tileManager.GetNextMovementPos(transform,Vector3Int.right);
+                    targetPosition = tileManager.GetNextMovementPos(startPos,Vector3Int.right);
                 }
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
+                jumpStartPos = transform.position;
                 animator.SetTrigger("Jump"); 
-                isJumping = true;
-            }
-            else if(Input.GetMouseButtonDown(0)){
-                animator.SetTrigger("Attack");
-                SoundController.instance.PlayAttackSound(true);
-                isAttacking = true;
             }
         }
 
@@ -100,10 +118,11 @@ public class PlayerController : MonoBehaviour
         moveCoroutine = null;
         isMoving = false;
     
-        if(!tileManager.HasTileBelow(transform)){
-            isMoving = true;
-            targetPosition = tileManager.GetNextMovementPos(transform, Vector3Int.down);
+        if(!tileManager.HasTileBelow(transform.position)){
+            targetPosition = tileManager.GetNextMovementPos(transform.position, Vector3Int.down);
         }
+
+
 
     }
 
@@ -112,8 +131,8 @@ public class PlayerController : MonoBehaviour
     {
         SoundController.instance.StopSfx();
         Vector3Int direction = spriteRenderer.flipX ? Vector3Int.left : Vector3Int.right;
-        if(!tileManager.isIndestructible(transform, direction)) {
-            tileManager.RemoveTile(transform, direction);
+        if(!tileManager.isIndestructible(transform.position, direction)) {
+            tileManager.RemoveTile(transform.position, direction);
         }
         else{
             // 깡 하는 소리
@@ -125,14 +144,17 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpEnd()
     {
+        if(!tileManager.HasTileBelow(jumpStartPos)) return;
+
         SoundController.instance.PlayJumpDownSound();
-        isJumping=false;
 
-        if(!tileManager.isIndestructible(transform, Vector3Int.down)) {
-            tileManager.RemoveTile(transform, Vector3Int.down);
-            targetPosition = tileManager.GetNextMovementPos(transform, Vector3Int.down);
+        if(!tileManager.isIndestructible(jumpStartPos, Vector3Int.down)) {
+            tileManager.RemoveTile(jumpStartPos, Vector3Int.down);
+            targetPosition = tileManager.GetNextMovementPos(transform.position, Vector3Int.down);
 
-            if(targetPosition == Vector3.negativeInfinity) targetPosition = transform.position;
+            if(targetPosition == Vector3.negativeInfinity) {
+                targetPosition = transform.position;
+            }
         }
         else{
             Debug.Log("깰 수 없는 블록");

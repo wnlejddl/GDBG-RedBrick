@@ -85,9 +85,10 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public bool isIndestructible(Transform transform, Vector3Int direction){
 
-        Vector3Int targetCell = foreTile.WorldToCell(transform.position);
+    public bool isIndestructible(Vector3 currentPos, Vector3Int direction){
+
+        Vector3Int targetCell = foreTile.WorldToCell(currentPos);
         if(direction == Vector3Int.left || direction == Vector3Int.right){
             targetCell += blockWidth * direction;
         }
@@ -121,14 +122,14 @@ public class TileManager : MonoBehaviour
         return -1;
     }
 
-    Vector3Int GetCheckCell(Transform currentPos, Vector3Int direction){
-        Vector3Int currentCell = foreTile.WorldToCell(currentPos.position); 
+    Vector3Int GetCheckCell(Vector3 currentPos, Vector3Int direction){
+        Vector3Int currentCell = foreTile.WorldToCell(currentPos); 
         return currentCell + blockHeight * direction;
     }
 
 
-    public Vector3 GetNextMovementPos(Transform currentPos, Vector3Int direction){
-        Vector3Int currentCell = foreTile.WorldToCell(currentPos.position); 
+    public Vector3 GetNextMovementPos(Vector3 currentPos, Vector3Int direction){
+        Vector3Int currentCell = foreTile.WorldToCell(currentPos); 
 
         float cameraLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f, Camera.main.nearClipPlane)).x;
         float cameraRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, Camera.main.nearClipPlane)).x;
@@ -146,12 +147,12 @@ public class TileManager : MonoBehaviour
             else
             {
                 // 시야 밖으로 벗어날 경우 현재 위치 반환
-                return currentPos.position;
+                return currentPos;
             }
         }
         else if (direction == Vector3Int.down){
            
-            Vector3Int belowCell = lastTile.WorldToCell(currentPos.position) + new Vector3Int(0, -1, 0);
+            Vector3Int belowCell = lastTile.WorldToCell(currentPos) + new Vector3Int(0, -1, 0);
             
             while (!lastTile.HasTile(belowCell))
             {
@@ -165,7 +166,7 @@ public class TileManager : MonoBehaviour
         return Vector3.negativeInfinity;
     }
 
-    public bool HasTileLeft(Transform currentPos){
+    public bool HasTileLeft(Vector3 currentPos){
         Vector3Int checkCell = GetCheckCell(currentPos, Vector3Int.left);
 
         foreach(Tilemap tile in tilemaps){
@@ -175,7 +176,7 @@ public class TileManager : MonoBehaviour
         return false;
     }
 
-    public bool HasTileRight(Transform currentPos){
+    public bool HasTileRight(Vector3 currentPos){
         Vector3Int checkCell = GetCheckCell(currentPos, Vector3Int.right);
 
         foreach(Tilemap tile in tilemaps){
@@ -184,7 +185,7 @@ public class TileManager : MonoBehaviour
         
         return false;
     }
-    public bool HasTileBelow(Transform currentPos){
+    public bool HasTileBelow(Vector3 currentPos){
         Vector3Int checkCell = GetCheckCell(currentPos, Vector3Int.down);
 
         foreach(Tilemap tile in tilemaps){
@@ -196,10 +197,10 @@ public class TileManager : MonoBehaviour
 
 
 
-    public void RemoveTile(Transform currentPos, Vector3Int direction)
+    public void RemoveTile(Vector3 currentPos, Vector3Int direction)
     {
 
-        Vector3Int currentCell = foreTile.WorldToCell(currentPos.position); 
+        Vector3Int currentCell = foreTile.WorldToCell(currentPos); 
         Vector3Int checkCell = currentCell + blockHeight * direction;
 
         int mapIndex = GetTilemapIndex(checkCell);
@@ -229,6 +230,9 @@ public class TileManager : MonoBehaviour
                     }
                 }
             }
+        }
+        else{
+            
         }
     }
 }
