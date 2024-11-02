@@ -12,8 +12,9 @@ public class GameManager : MonoBehaviour
     CameraController cameraController;
     private Camera mainCamera;
 
+    private int score;
 
-    private static GameManager instance;
+    public static GameManager instance;
 
     private void Awake()
     {
@@ -89,6 +90,11 @@ public class GameManager : MonoBehaviour
     {
         SoundController.instance.StopSfx();
         SceneManager.LoadScene(0);
+    }
+
+    public void AddScore(int pt){
+        score += pt;
+        Debug.Log("현재 점수 : " + score);
     }
 
 }

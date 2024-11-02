@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.Android;
 
@@ -11,6 +12,7 @@ public class SoundController : MonoBehaviour
     public static SoundController instance;
 
    [SerializeField] AudioClip jumpDown;
+   [SerializeField] AudioClip money;
    [SerializeField] AudioClip attack;
 
     private void Awake() {
@@ -41,6 +43,11 @@ public class SoundController : MonoBehaviour
 
     public void PlayJumpDownSound(){
         sfx.clip = jumpDown;
+        sfx.Play();
+    }
+
+    public void PlayMoneySound(){
+        sfx.clip = money;
         sfx.Play();
     }
 

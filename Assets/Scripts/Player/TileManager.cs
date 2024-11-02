@@ -12,7 +12,6 @@ public class TileManager : MonoBehaviour
     [SerializeField] GameObject minPoint;
 
     private Color indestructibleColor = Color.black;
-    private float colorTolerance = 0.01f; // 색상 비교 허용 오차
 
     List<Tilemap> tilemaps;
     
@@ -29,7 +28,6 @@ public class TileManager : MonoBehaviour
     {
         // 타일맵의 범위를 가져옵니다.
         BoundsInt bounds = foreTile.cellBounds;
-        Debug.Log(bounds);
 
         Vector3Int minCell = foreTile.WorldToCell(minPoint.transform.position);
 
@@ -38,17 +36,26 @@ public class TileManager : MonoBehaviour
             for (int y = minCell.y; y <= bounds.yMax - blockHeight; y += blockHeight)
             {
                 // 랜덤하게 4x3 블록을 검정색으로 설정
-                if (Random.value < 0.05f) 
+                if (Random.value < 0.2f) 
                 {
                     SetIndestructibleBlock(x, y);
                 }
-
-                else if (Random.value < 0.05f) 
+                else if (Random.value < 0.2f) 
                 {
                     SetEmptyBlock(x, y);
                 }
+                else if (Random.value < 0.3f) 
+                {
+                    SetItems(x+2, y+1);
+                }
             }
         }
+    }
+
+    private void SetItems(int x, int y){
+        Vector3 itemPos = foreTile.CellToWorld(new Vector3Int(x,y,0)) + new Vector3(0,0.5f,0) ;
+        GameObject item = ItemManager.instance.GetRandomItem();
+        Instantiate(item, itemPos, Quaternion.identity);
     }
 
     private void SetEmptyBlock(int startX, int startY){

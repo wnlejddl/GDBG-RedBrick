@@ -34,6 +34,14 @@ public class PlayerController : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
+        
+    }
+
+    void Instantiate(){
+       if(!tileManager.HasTileBelow(transform.position)){
+            targetPosition = tileManager.GetNextMovementPos(transform.position, Vector3Int.down);
+        }
     }
 
     void Update()
@@ -121,9 +129,6 @@ public class PlayerController : MonoBehaviour
         if(!tileManager.HasTileBelow(transform.position)){
             targetPosition = tileManager.GetNextMovementPos(transform.position, Vector3Int.down);
         }
-
-
-
     }
 
 
