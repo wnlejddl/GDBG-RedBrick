@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     float moveSpeed = 10f;
 
     private Coroutine moveCoroutine;
-
+    
 
     // 애니메이션
     private Animator animator; 
@@ -111,7 +111,15 @@ public class PlayerController : MonoBehaviour
     public void OnAttackEnd()
     {
         SoundController.instance.StopSfx();
-        tileManager.RemoveTile(transform, spriteRenderer.flipX ? Vector3Int.left : Vector3Int.right);
+        Vector3Int direction = spriteRenderer.flipX ? Vector3Int.left : Vector3Int.right;
+        if(!tileManager.isIndestructible(transform, direction)) {
+            tileManager.RemoveTile(transform, direction);
+        }
+        else{
+            // 깡 하는 소리
+            Debug.Log("깰 수 없는 블록");
+        }
+        
         isAttacking = false;
     }
 
@@ -119,10 +127,18 @@ public class PlayerController : MonoBehaviour
     {
         SoundController.instance.PlayJumpDownSound();
         isJumping=false;
-        tileManager.RemoveTile(transform, Vector3Int.down);
-        targetPosition = tileManager.GetNextMovementPos(transform, Vector3Int.down);
-        Debug.Log(targetPosition);
-        if(targetPosition == Vector3.negativeInfinity) targetPosition = transform.position;
+
+        if(!tileManager.isIndestructible(transform, Vector3Int.down)) {
+            tileManager.RemoveTile(transform, Vector3Int.down);
+            targetPosition = tileManager.GetNextMovementPos(transform, Vector3Int.down);
+
+            if(targetPosition == Vector3.negativeInfinity) targetPosition = transform.position;
+        }
+        else{
+            Debug.Log("깰 수 없는 블록");
+        }
+
+       
     }
 
     public void Dead(){

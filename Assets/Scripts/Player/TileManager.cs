@@ -9,6 +9,10 @@ public class TileManager : MonoBehaviour
     [SerializeField] Tilemap foreTile;
     [SerializeField] Tilemap middleTile;
     [SerializeField] Tilemap lastTile;
+    [SerializeField] GameObject minPoint;
+
+    private Color indestructibleColor = Color.black;
+    private float colorTolerance = 0.01f; // 색상 비교 허용 오차
 
     List<Tilemap> tilemaps;
     
@@ -18,6 +22,93 @@ public class TileManager : MonoBehaviour
 
     private void Start() {
         tilemaps = new List<Tilemap>(){foreTile,middleTile, lastTile};
+        InitializeTileBlocks();
+    }
+
+    private void InitializeTileBlocks()
+    {
+        // 타일맵의 범위를 가져옵니다.
+        BoundsInt bounds = foreTile.cellBounds;
+        Debug.Log(bounds);
+
+        Vector3Int minCell = foreTile.WorldToCell(minPoint.transform.position);
+
+        for (int x = minCell.x; x <= bounds.xMax - blockWidth; x += blockWidth)
+        {
+            for (int y = minCell.y; y <= bounds.yMax - blockHeight; y += blockHeight)
+            {
+                // 랜덤하게 4x3 블록을 검정색으로 설정
+                if (Random.value < 0.05f) 
+                {
+                    SetIndestructibleBlock(x, y);
+                }
+
+                else if (Random.value < 0.05f) 
+                {
+                    SetEmptyBlock(x, y);
+                }
+            }
+        }
+    }
+
+    private void SetEmptyBlock(int startX, int startY){
+        for (int x = startX; x < startX + blockWidth; x++)
+        {
+            for (int y = startY; y < startY + blockHeight; y++)
+            {
+                Vector3Int pos = new Vector3Int(x, y, 0);
+                if (foreTile.HasTile(pos))
+                {
+                    foreach(Tilemap map in tilemaps){
+                        map.SetTile(pos, null); 
+                    }
+                }
+            }
+        }
+    }
+
+    private void SetIndestructibleBlock(int startX, int startY)
+    {
+        
+        for (int x = startX; x < startX + blockWidth; x++)
+        {
+            for (int y = startY; y < startY + blockHeight; y++)
+            {
+                Vector3Int pos = new Vector3Int(x, y, 0);
+                if (foreTile.HasTile(pos))
+                {
+                    foreTile.SetTileFlags(pos, TileFlags.None);
+                    foreTile.SetColor(pos, indestructibleColor); // 타일 색상 설정
+                    foreTile.SetTileFlags(pos, TileFlags.LockColor); // 부술 수 없도록 설정
+                }
+            }
+        }
+    }
+
+    public bool isIndestructible(Transform transform, Vector3Int direction){
+
+        Vector3Int targetCell = foreTile.WorldToCell(transform.position);
+        if(direction == Vector3Int.left || direction == Vector3Int.right){
+            targetCell += blockWidth * direction;
+        }
+        else{
+            targetCell += blockHeight * direction;
+        }
+
+        if (foreTile.HasTile(targetCell))
+        {
+            // 해당 위치의 타일 색상 가져오기
+            Color tileColor = foreTile.GetColor(targetCell);
+
+            // 타일 색상이 indestructibleColor인지 확인
+            if (tileColor == indestructibleColor)
+            {
+                Debug.Log("깰 수 없어요");
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
