@@ -39,9 +39,24 @@ public class TileManager : MonoBehaviour
     public Vector3 GetNextMovementPos(Transform currentPos, Vector3Int direction){
         Vector3Int currentCell = foreTile.WorldToCell(currentPos.position); 
 
+        float cameraLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f, Camera.main.nearClipPlane)).x;
+        float cameraRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 0.5f, Camera.main.nearClipPlane)).x;
+
+
         if(direction == Vector3Int.left || direction == Vector3Int.right){
             Vector3Int targetCell = currentCell + blockWidth * direction;
-            return foreTile.CellToWorld(targetCell) + new Vector3(0, 0.4f, 0);
+            Vector3 targetWorldPos = foreTile.CellToWorld(targetCell) + new Vector3(0, 0.4f, 0);
+
+            // 이동할 위치가 카메라의 좌우 경계 내에 있는지 확인
+            if (targetWorldPos.x >= cameraLeft && targetWorldPos.x <= cameraRight)
+            {
+                return targetWorldPos;
+            }
+            else
+            {
+                // 시야 밖으로 벗어날 경우 현재 위치 반환
+                return currentPos.position;
+            }
         }
         else if (direction == Vector3Int.down){
            
@@ -51,7 +66,6 @@ public class TileManager : MonoBehaviour
             
             while (!lastTile.HasTile(belowCell))
             {
-                Debug.Log("이거 돌아감?");
                 belowCell += new Vector3Int(0, -1, 0);
             }
             
@@ -119,7 +133,6 @@ public class TileManager : MonoBehaviour
                 }
             }
             else if(direction == Vector3Int.down){
-                Debug.Log("흠냐");
                 for(int i=-blockWidth/2;i<blockWidth/2;i++){
                     for(int j=1;j<=blockHeight;j++){
                         Vector3Int targetCell = currentCell + new Vector3Int(i, -j, 0);
