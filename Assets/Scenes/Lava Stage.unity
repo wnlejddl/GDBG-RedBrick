@@ -41336,6 +41336,10 @@ PrefabInstance:
       propertyPath: middleTile
       value: 
       objectReference: {fileID: 134013801}
+    - target: {fileID: 5142471501988354309, guid: e3899867d6123254987077a7c678cc73, type: 3}
+      propertyPath: tileManager
+      value: 
+      objectReference: {fileID: 8700906927371857027}
     - target: {fileID: 8211990841330437460, guid: e3899867d6123254987077a7c678cc73, type: 3}
       propertyPath: m_Name
       value: penguin
@@ -124003,6 +124007,86 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 149982747798369759, guid: 9fbf1bdcbe3255d4481f72a9575bd309, type: 3}
   m_PrefabInstance: {fileID: 2144020742}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &181907341391851139
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1001268395572691706, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: foreTile
+      value: 
+      objectReference: {fileID: 1910859337}
+    - target: {fileID: 1001268395572691706, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: lastTile
+      value: 
+      objectReference: {fileID: 1287440422}
+    - target: {fileID: 1001268395572691706, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: middleTile
+      value: 
+      objectReference: {fileID: 134013801}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.370615
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.135921
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.40378878
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202792143634306741, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_Name
+      value: TileManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+--- !u!114 &8700906927371857027 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1001268395572691706, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+  m_PrefabInstance: {fileID: 181907341391851139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f77d91e11b4484d9fb0c5da311f464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -124014,3 +124098,4 @@ SceneRoots:
   - {fileID: 417045057}
   - {fileID: 324663677}
   - {fileID: 717853537}
+  - {fileID: 181907341391851139}

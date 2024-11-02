@@ -10121,7 +10121,7 @@ GameObject:
   - component: {fileID: 1129823233}
   - component: {fileID: 1129823232}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44965,7 +44965,7 @@ GameObject:
   - component: {fileID: 1140451926}
   - component: {fileID: 1140451925}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: fore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85277,7 +85277,7 @@ GameObject:
   - component: {fileID: 1707595901}
   - component: {fileID: 1707595900}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: last
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123775,6 +123775,86 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2182177616223900717, guid: 905c4ef5f25e1bb409f512019d4299ca, type: 3}
   m_PrefabInstance: {fileID: 2111666392}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2139684441
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1001268395572691706, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: foreTile
+      value: 
+      objectReference: {fileID: 1140451926}
+    - target: {fileID: 1001268395572691706, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: lastTile
+      value: 
+      objectReference: {fileID: 1707595901}
+    - target: {fileID: 1001268395572691706, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: middleTile
+      value: 
+      objectReference: {fileID: 1129823233}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.370615
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.135921
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.40378878
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546600270002152397, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8202792143634306741, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+      propertyPath: m_Name
+      value: TileManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+--- !u!114 &2139684442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1001268395572691706, guid: 72927e980c2a4fc43b80e4d36a364af3, type: 3}
+  m_PrefabInstance: {fileID: 2139684441}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f77d91e11b4484d9fb0c5da311f464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2144020742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123861,6 +123941,10 @@ PrefabInstance:
       propertyPath: middleTile
       value: 
       objectReference: {fileID: 1129823233}
+    - target: {fileID: 5142471501988354309, guid: e3899867d6123254987077a7c678cc73, type: 3}
+      propertyPath: tileManager
+      value: 
+      objectReference: {fileID: 2139684442}
     - target: {fileID: 8211990841330437460, guid: e3899867d6123254987077a7c678cc73, type: 3}
       propertyPath: m_Name
       value: penguin
@@ -123982,3 +124066,4 @@ SceneRoots:
   - {fileID: 13260036}
   - {fileID: 990643407}
   - {fileID: 1821085638081349223}
+  - {fileID: 2139684441}
