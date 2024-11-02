@@ -89,7 +89,12 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SoundController.instance.StopSfx();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Ice Stage");
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Ice Stage");
     }
 
     public void AddScore(int pt){

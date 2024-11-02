@@ -9,6 +9,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] Tilemap foreTile;
     [SerializeField] Tilemap middleTile;
     [SerializeField] Tilemap lastTile;
+    [SerializeField] Tilemap wall;
     [SerializeField] GameObject minPoint;
 
     private Color indestructibleColor = Color.black;
@@ -144,6 +145,9 @@ public class TileManager : MonoBehaviour
 
         if(direction == Vector3Int.left || direction == Vector3Int.right){
             Vector3Int targetCell = currentCell + blockWidth * direction;
+
+            if(wall.HasTile(targetCell)) return currentPos;
+            
             Vector3 targetWorldPos = foreTile.CellToWorld(targetCell) + new Vector3(0, 0.4f, 0);
 
             // 이동할 위치가 카메라의 좌우 경계 내에 있는지 확인

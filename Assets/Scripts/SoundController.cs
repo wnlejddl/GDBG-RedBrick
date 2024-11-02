@@ -47,6 +47,7 @@ public class SoundController : MonoBehaviour
     }
 
     public void PlayMoneySound(){
+        sfx.loop = false;
         sfx.clip = money;
         sfx.Play();
     }
