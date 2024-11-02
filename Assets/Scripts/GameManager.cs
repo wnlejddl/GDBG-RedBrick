@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        SoundController.instance.StopSfx();
         SceneManager.LoadScene(0);
     }
 

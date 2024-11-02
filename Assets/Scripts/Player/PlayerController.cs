@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator; 
 
     bool isMoving= false;
+    bool isJumping= false;
     bool isAttacking = false;
 
 
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(!isMoving && !isAttacking){
+        if(!isMoving && !isAttacking && !isJumping){
             if (Input.GetKeyDown(KeyCode.A))
             {
                 spriteRenderer.flipX = true;
@@ -59,9 +60,11 @@ public class PlayerController : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Space))
             {
                 animator.SetTrigger("Jump"); 
+                isJumping = true;
             }
             else if(Input.GetMouseButtonDown(0)){
                 animator.SetTrigger("Attack");
+                SoundController.instance.PlayAttackSound(true);
                 isAttacking = true;
             }
         }
@@ -96,17 +99,26 @@ public class PlayerController : MonoBehaviour
 
         moveCoroutine = null;
         isMoving = false;
+    
+        if(!tileManager.HasTileBelow(transform)){
+            isMoving = true;
+            targetPosition = tileManager.GetNextMovementPos(transform, Vector3Int.down);
+        }
+
     }
 
 
     public void OnAttackEnd()
     {
+        SoundController.instance.StopSfx();
         tileManager.RemoveTile(transform, spriteRenderer.flipX ? Vector3Int.left : Vector3Int.right);
         isAttacking = false;
     }
 
     public void OnJumpEnd()
     {
+        SoundController.instance.PlayJumpDownSound();
+        isJumping=false;
         tileManager.RemoveTile(transform, Vector3Int.down);
         targetPosition = tileManager.GetNextMovementPos(transform, Vector3Int.down);
         Debug.Log(targetPosition);

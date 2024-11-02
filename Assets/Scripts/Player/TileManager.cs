@@ -1,8 +1,8 @@
-using UnityEditor.Experimental.GraphView;
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Unity.VisualScripting;
+
 
 public class TileManager : MonoBehaviour
 {
@@ -61,8 +61,6 @@ public class TileManager : MonoBehaviour
         else if (direction == Vector3Int.down){
            
             Vector3Int belowCell = lastTile.WorldToCell(currentPos.position) + new Vector3Int(0, -1, 0);
-            if(lastTile.HasTile(belowCell));
-
             
             while (!lastTile.HasTile(belowCell))
             {

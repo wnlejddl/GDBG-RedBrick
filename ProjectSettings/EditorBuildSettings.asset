@@ -11,13 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ice Stage.unity
     guid: 93d10f80ce954c04687897f1b6335ec5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Earth Stage.unity
     guid: ac9447cf50db5924baa17ee668d10947
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lava Stage.unity
     guid: 0d8138a40d9f425488510706cc90d717
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Goal Stage.unity
     guid: a348f8dcae553d84894da15bf5456d08
   m_configObjects: {}
