@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class CameraController : MonoBehaviour
@@ -20,6 +21,8 @@ public class CameraController : MonoBehaviour
 
     private void Start() {
         stopFlag =false;
+
+        if (SceneManager.GetActiveScene().buildIndex == 0) stopFlag = true;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
@@ -44,5 +47,9 @@ public class CameraController : MonoBehaviour
 
     public void Stop(){
         stopFlag = true;
+    }
+
+    public void StartCamera(){
+        stopFlag = false;
     }
 }

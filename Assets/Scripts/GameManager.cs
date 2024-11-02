@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         // 씬이 로드될 때마다 Player 오브젝트를 찾음
         player = GameObject.FindWithTag("Player");
         mainCamera = Camera.main;
+        cameraController = mainCamera.GetComponent<CameraController>();
 
         if (player == null)
         {
