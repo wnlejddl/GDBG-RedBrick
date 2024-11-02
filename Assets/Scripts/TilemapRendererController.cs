@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
-public class TilemapRendererController : MonoBehaviour
+public class DisableInactiveTilemapRenderers : MonoBehaviour
 {
     private void OnEnable()
     {
@@ -18,43 +16,34 @@ public class TilemapRendererController : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 씬 이름에 따라 비활성화할 씬 배열 정의
-        switch (scene.name)
-        {
-            case "Ice Stage":
-                DisableOtherTilemapRenderers("Earth Stage", "Lava Stage", "Goal Stage");
-                break;
-            case "Earth Stage":
-                DisableOtherTilemapRenderers("Ice Stage", "Lava Stage", "Goal Stage");
-                break;
-            case "Lava Stage":
-                DisableOtherTilemapRenderers("Ice Stage", "Earth Stage", "Goal Stage");
-                break;
-            case "Goal Stage":
-                DisableOtherTilemapRenderers("Ice Stage", "Earth Stage", "Lava Stage");
-                break;
-            default:
-                break;
-        }
+        // 씬이 로드된 후 비활성화 지연 실행
+        Invoke("DisableTilemapRenderersInInactiveScenes", 0.1f); // 0.1초 후 실행
     }
 
-    void DisableOtherTilemapRenderers(params string[] sceneNames)
+    void DisableTilemapRenderersInInactiveScenes()
     {
-        foreach (string sceneName in sceneNames)
+        // 활성화된 씬을 확인하고, 나머지 씬에서 TilemapRenderer를 비활성화
+        for (int i = 0; i < SceneManager.sceneCount; i++)
         {
-            Scene scene = SceneManager.GetSceneByName(sceneName);
-            if (scene.isLoaded) // 씬이 로드되어 있는지 확인
+            Scene otherScene = SceneManager.GetSceneAt(i);
+            if (!otherScene.isLoaded) // 비활성화된 씬만
             {
-                GameObject[] sceneObjects = scene.GetRootGameObjects();
-                foreach (GameObject obj in sceneObjects)
+                GameObject[] rootObjects = otherScene.GetRootGameObjects();
+                foreach (GameObject obj in rootObjects)
                 {
-                    TilemapRenderer[] renderers = obj.GetComponentsInChildren<TilemapRenderer>(true);
-                    foreach (TilemapRenderer renderer in renderers)
+                    // GameObject가 Grid인지 확인
+                    Grid grid = obj.GetComponent<Grid>();
+                    if (grid != null)
                     {
-                        renderer.enabled = false; // 타일맵 렌더러 비활성화
+                        // Grid의 자식 타일맵을 찾음
+                        TilemapRenderer[] renderers = obj.GetComponentsInChildren<TilemapRenderer>(true);
+                        foreach (TilemapRenderer renderer in renderers)
+                        {
+                            renderer.enabled = false; // TilemapRenderer 비활성화
+                            Debug.Log($"Disabled TilemapRenderer in scene: {otherScene.name} - {renderer.name}");
+                        }
                     }
                 }
-                Debug.Log($"Tilemap Renderers disabled in scene: {sceneName}");
             }
         }
     }
